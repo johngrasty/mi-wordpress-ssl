@@ -56,7 +56,8 @@ WPADMIN_EMA="admin@site.local";
 
 log "Installing Wordpress via wp_cli"
 
-cd /data/www/wordpress
+cd /data/www/wordpress ||
+mkdir -p /data/www/wordpress && chown -R www:www /data/www/ cd /data/www/wordpress;
 
 # This test won't work. It checks to see if the table are installed
 # It will be better test if the config file is there.

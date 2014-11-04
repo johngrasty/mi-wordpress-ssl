@@ -56,7 +56,7 @@ mkdir -p /opt/local/etc/nginx/sites-available
 cp /root/nginx.conf /opt/local/etc/nginx/nginx.conf
 cp /root/php.ini /opt/local/etc/php.ini
 
-chown -R www:www /opt/local/www
+
 chown www:www /opt/local/etc/nginx/sites-enabled
 chown www:www /opt/local/etc/nginx/sites-available
 chown www:www /var/db/ssl
