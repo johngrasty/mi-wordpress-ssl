@@ -75,13 +75,13 @@ if [[ ! -e wp-config.php ]], then
 fi
 
 log "customizing wp-config.php"
-gsed -i "37i define ('WP_POST_REVISIONS', 4);" /opt/local/www/wordpress/wp-config.php
-gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /opt/local/www/wordpress/wp-config.php
-gsed -i "39i define('DISABLE_WP_CRON', true);" /opt/local/www/wordpress/wp-config.php
+gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
+gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
+gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
 
 log "customizing cron"
 crontab -l > /tmp/mycron
-echo "45 * * * * /opt/local/bin/php /opt/local/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
+echo "45 * * * * /opt/local/bin/php /data/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
 crontab /tmp/mycron
 
 gsed -i "s/%WEBUI_ADDRESS%/${WEBUI_ADDRESS}/" /etc/motd
