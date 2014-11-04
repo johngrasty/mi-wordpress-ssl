@@ -1,6 +1,5 @@
 # List packages to add to your image one per line.
-percona-server
-quickbackup-percona
+mysql-client
 gmake 
 gcc47 
 GeoIP

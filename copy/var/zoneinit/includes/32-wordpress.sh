@@ -1,24 +1,18 @@
 
-log "generating ssl certs"
-/opt/local/etc/nginx/sslgen.sh
-
 log "enabling http services"
 svcadm enable nginx
 svcadm enable php-fpm
 #svcadm enable memcached
 
 
-log "Creating Wordpress DB"
+# Get password from metadata, unless passed as MYSQL_PW, or set one.
+log "getting mysql_pw"
+MYSQL_PW=${MYSQL_PW:-$(mdata-get mysql_pw 2>/dev/null)} || \
+MYSQL_PW=$(od -An -N8 -x /dev/random | head -1 | tr -d ' ');
+gsed -i "s/%MYSQL_PW%/${MYSQL_PW}/" /etc/motd
 
-WP_PW=$(od -An -N4 -x /dev/random | head -1 | tr -d ' ');
 
-echo "CREATE DATABASE wordpressdb;" >> /tmp/wp.sql
-echo "grant all privileges  on wordpressdb.* to wordpressdba@localhost identified by '$WP_PW';" >> /tmp/wp.sql
-echo "FLUSH PRIVILEGES;" >> /tmp/wp.sql
-
-log "Injecting Wordpress SQL"
-MYSQL_PW=$(/opt/local/bin/grep MySQL /etc/motd | /opt/local/bin/awk '{$1=""; print $3}');
-/opt/local/bin/mysql -u root -p$MYSQL_PW < /tmp/wp.sql
+WP_PW=$MYSQL_PW
 
 log "determine the webui address for the motd"
 
@@ -29,6 +23,22 @@ if [[ ! -z $PUBLIC_IP ]]; then
 fi
 
 log "mdata-get wordpress metadata"
+
+MYSQL_HOST=${MYSQL_HOST:-$(mdata-get mysql_host 2>/dev/null)} || \
+MYSQL_HOST="10.0.0.4";
+
+MYSQL_NAME=${MYSQL_NAME:-$(mdata-get wpdb_name 2>/dev/null)} || \
+MYSQL_NAME="wordpressdb";
+
+MYSQL_USER=${MYSQL_USER:-$(mdata-get wpdb_user 2>/dev/null)} || \
+MYSQL_USER="wordpressdba";
+
+TABLE_PREFIX=${TABLE_PREFIX:-$(mdata-get table_prefix 2>/dev/null)} || \
+TABLE_PREFIX="_wpmy";
+
+WPSITE_TITLE=${WPSITE_TITLE:-$(mdata-get wpsite_title 2>/dev/null)} || \
+WPSITE_TITLE="Wordpress Site";
+
 WPSITE_URL=${WPSITE_URL:-$(mdata-get wpsite_url 2>/dev/null)} || \
 WPSITE_URL=${WEBUI_ADDRESS};
 
@@ -46,15 +56,18 @@ WPADMIN_EMA="admin@site.local";
 
 log "Installing Wordpress via wp_cli"
 
-cd /opt/local/www/wordpress
-/opt/local/bin/wp core download
-/opt/local/bin/wp core config --dbname="wordpressdb" --dbuser="wordpressdba" --dbpass="$WP_PW" --dbprefix="_wpmy"
-/opt/local/bin/wp core install --url="${WPSITE_URL}" --title="Wordpress Site" --admin_user="${WPADMIN_USR}" --admin_password="${WPADMIN_PSW}" --admin_email="${WPADMIN_EMA}"
-/opt/local/bin/wp plugin install wordpress-seo
-/opt/local/bin/wp plugin install nginx-helper
-/opt/local/bin/wp plugin activate wordpress-seo
-/opt/local/bin/wp plugin activate nginx-helper
-/opt/local/bin/wp rewrite structure '/%postname%/'
+cd /data/www/wordpress
+
+if ! $(/opt/local/bin/wp core is-installed); then
+	/opt/local/bin/wp core download
+	/opt/local/bin/wp core config --dbname="${MYSQL_NAME}" --dbuser="${MYSQL_USER}" --dbpass="${WP_PW}" --dbprefix="${TABLE_PREFIX}"
+	/opt/local/bin/wp core install --url="${WPSITE_URL}" --title="${WPSITE_TITLE}" --admin_user="${WPADMIN_USR}" --admin_password="${WPADMIN_PSW}" --admin_email="${WPADMIN_EMA}"
+	/opt/local/bin/wp plugin install wordpress-seo
+	/opt/local/bin/wp plugin install nginx-helper
+	/opt/local/bin/wp plugin activate wordpress-seo
+	/opt/local/bin/wp plugin activate nginx-helper
+	/opt/local/bin/wp rewrite structure '/%postname%/'
+fi
 
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /opt/local/www/wordpress/wp-config.php

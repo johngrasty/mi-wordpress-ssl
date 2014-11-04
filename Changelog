@@ -1,5 +1,15 @@
 # Changelog
 
+0.2 - My fork
+
+* Removes percona
+* Gets wp database information from mdata
+* Sets wordpress root to /data/www/
+* Updated nginx to 1.7.7.
+* Upped max upload to 60M
+* Removed keygen.
+* Removed mysql.sh from zoneinit.
+
 0.1.1
 
 * Compiles Nginx 1.7.4 with FastCGI Cache purge Module, Geoip and HTTPS SPDY support

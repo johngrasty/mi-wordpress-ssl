@@ -1,4 +1,4 @@
-mi-wordpress
+mi-wordpress-no_mysql
 ============
 Please refer to [joyent/mibe](https://github.com/joyent/mibe) to create a provisionable image using this repo.
 Wordpress with FastCGI + Nginx + opcache
