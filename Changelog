@@ -1,5 +1,9 @@
 # Changelog
 
+0.2.1
+
+* Changed the test for installing WP to check the mdata-get install for "true"
+
 0.2 - My fork
 
 * Removes percona
