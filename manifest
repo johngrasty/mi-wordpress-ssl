@@ -1,6 +1,6 @@
 name="wordpress-without_mysql"
 organization="Grasty"
 brand="Instance"
-version="0.2.1"
+version="0.2.2"
 description="Wordpress with FastCGI + Nginx + opcache - mysql"
 users="root admin"

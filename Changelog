@@ -1,5 +1,9 @@
 # Changelog
 
+0.2.2
+
+* Fixed more small errors in the provisions process. Mine. Not trenster's.
+
 0.2.1
 
 * Changed the test for installing WP to check the mdata-get install for "true"
