@@ -60,7 +60,7 @@ INSTALL="true";
 log "Installing Wordpress via wp_cli"
 
 cd /data/www/wordpress ||
-mkdir -p /data/www/wordpress && chown -R www:www /data/www/ cd /data/www/wordpress;
+mkdir -p /data/www/wordpress && chown -R www:www /data/www/ && cd /data/www/wordpress;
 
 # This test won't work. It checks to see if the table are installed
 # It will be better test if the config file is there.
@@ -77,10 +77,12 @@ if [[ ${INSTALL} == "true" ]], then
 	/opt/local/bin/wp rewrite structure '/%postname%/'
 fi
 
+if [[ wp-config.php -e ]], then 
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
 gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
 gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
+fi
 
 log "customizing cron"
 crontab -l > /tmp/mycron
