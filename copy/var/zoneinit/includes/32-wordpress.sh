@@ -77,7 +77,7 @@ if [[ ${INSTALL} == "true" ]], then
 	/opt/local/bin/wp rewrite structure '/%postname%/'
 fi
 
-if [[ wp-config.php -e ]], then 
+if [[ -e wp-config.php ]], then 
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
 gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
