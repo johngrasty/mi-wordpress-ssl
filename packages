@@ -19,7 +19,6 @@ php55-mysql
 php55-pdo_mysql
 php55-bcmath
 php55-fpm
-nano
 php55-dom
 php55-xmlrpc
 php55-opcache

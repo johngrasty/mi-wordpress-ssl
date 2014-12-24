@@ -68,12 +68,14 @@ mkdir -p /data/www/wordpress && chown -R www:www /data/www/ && cd /data/www/word
 
 if [[ ${INSTALL} == "true" ]]; then
 	/opt/local/bin/wp core download
-	/opt/local/bin/wp core config --dbname="${MYSQL_NAME}" --dbuser="${MYSQL_USER}" --dbpass="${WP_PW}" --dbprefix="${TABLE_PREFIX}"
+	/opt/local/bin/wp core config --dbname="${MYSQL_NAME}" --dbuser="${MYSQL_USER}" --dbpass="${WP_PW}" --dbprefix="${TABLE_PREFIX}" --dbhost="${MYSQL_HOST}"
 	/opt/local/bin/wp core install --url="${WPSITE_URL}" --title="${WPSITE_TITLE}" --admin_user="${WPADMIN_USR}" --admin_password="${WPADMIN_PSW}" --admin_email="${WPADMIN_EMA}"
 	/opt/local/bin/wp plugin install wordpress-seo
 	/opt/local/bin/wp plugin install nginx-helper
+	/opt/local/bin/wp plugin install proxy-real-ip
 	/opt/local/bin/wp plugin activate wordpress-seo
 	/opt/local/bin/wp plugin activate nginx-helper
+	/opt/local/bin/wp plugin activate proxy-real-ip
 	/opt/local/bin/wp rewrite structure '/%postname%/'
 fi
 
