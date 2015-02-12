@@ -22,7 +22,7 @@ mkdir -p /opt/local/etc/nginx/globals
 mkdir -p /var/db/ssl
 
 # build nginx in /root because /root gets cleaned up automatically
-NGINXVERSION=1.7.9
+NGINXVERSION=1.7.10
 # PURGEVERSION=2.1
 
 cd /root

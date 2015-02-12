@@ -1,5 +1,18 @@
 # Changelog
 
+0.2.4
+
+- updated nginx to 1.7.10
+
+0.2.3
+
+- updated nginx to 1.7.9
+- removed nano (I use vim)
+- made improvements to proxying
+- scheme in header
+- real-ip plugin
+- different key for cache
+
 0.2.2
 
 * Fixed more small errors in the provisions process. Mine. Not trenster's.
