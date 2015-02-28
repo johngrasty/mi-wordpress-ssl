@@ -91,7 +91,7 @@ crontab -l > /tmp/mycron
 echo "45 * * * * /opt/local/bin/php /data/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
 crontab /tmp/mycron
 
-gsed -i "s/%WEBUI_ADDRESS%/${WEBUI_ADDRESS}/" /etc/motd
+
 # gsed -i "s/%WP_PW%/${WP_PW}/" /etc/motd
 gsed -i "s/%WPSITE_URL%/${WPSITE_URL}/" /etc/motd
 gsed -i "s/%WPADMIN_USR%/${WPADMIN_USR}/" /etc/motd

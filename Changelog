@@ -1,5 +1,17 @@
 # Changelog
 
+0.3 
+
+- SSL 
+- Salt integrated
+- nginx will not be enabled, because of the keys.
+- Salt will install the keys, and then enable nginx.
+
+Details:
+
+- Symlink ssl wordpress config
+- Disable nginx
+
 0.2.5
 
 - Added test so wp-cli will not try to reinstall core if zone is being reprovisioned.

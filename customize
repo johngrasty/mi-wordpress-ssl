@@ -4,6 +4,12 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
+# Variables
+NGINXVERSION=1.7.10
+# PURGEVERSION=2.1
+SALTVERSION=salt-2014.7.2
+
+
 # Exit if any commands fail
 set -o errexit
 
@@ -22,8 +28,7 @@ mkdir -p /opt/local/etc/nginx/globals
 mkdir -p /var/db/ssl
 
 # build nginx in /root because /root gets cleaned up automatically
-NGINXVERSION=1.7.10
-# PURGEVERSION=2.1
+
 
 cd /root
 curl -kLO http://nginx.org/download/nginx-${NGINXVERSION}.tar.gz
@@ -61,12 +66,21 @@ chown www:www /opt/local/etc/nginx/sites-enabled
 chown www:www /opt/local/etc/nginx/sites-available
 chown www:www /var/db/ssl
 
-# ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
-ln -s /opt/local/etc/nginx/sites-available/wordpress.conf /opt/local/etc/nginx/sites-enabled/
+ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
+# ln -s /opt/local/etc/nginx/sites-available/wordpress.conf /opt/local/etc/nginx/sites-enabled/
 
-svcadm restart nginx && svcadm restart php-fpm
+svcadm disable nginx && svcadm restart php-fpm
 svcadm enable postfix
 newaliases
+
+# Download current Salt and install service manifests
+cd /opt 
+curl -k -LO https://us-east.manta.joyent.com/nahamu/public/salt/${SALTVERSION}-esky-smartos.tar.gz
+tar xzvf ${SALTVERSION}-esky-smartos.tar.gz
+/opt/salt/install/install.sh
+
+#mkdir /opt/salt/etc/minion.d/
+#echo "pki_dir: /data/salt/pki/minion" > /opt/salt/etc/minion.d/pki.conf
 
 # Clean up
 echo "* Cleaning up."
