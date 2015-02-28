@@ -1,5 +1,12 @@
 # Changelog
 
+0.2.5
+
+- Added test so wp-cli will not try to reinstall core if zone is being reprovisioned.
+- Beginning work to make SSL version
+- Will split SSL version into it's own for now.
+- Will add salt support soon.
+
 0.2.4
 
 - updated nginx to 1.7.10

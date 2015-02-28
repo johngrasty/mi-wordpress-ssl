@@ -34,7 +34,7 @@ MYSQL_USER=${MYSQL_USER:-$(mdata-get wpdb_user 2>/dev/null)} || \
 MYSQL_USER="wordpressdba";
 
 TABLE_PREFIX=${TABLE_PREFIX:-$(mdata-get table_prefix 2>/dev/null)} || \
-TABLE_PREFIX="_wpmy";
+TABLE_PREFIX="wp_";
 
 WPSITE_TITLE=${WPSITE_TITLE:-$(mdata-get wpsite_title 2>/dev/null)} || \
 WPSITE_TITLE="Wordpress Site";
@@ -66,7 +66,7 @@ mkdir -p /data/www/wordpress && chown -R www:www /data/www/ && cd /data/www/word
 # It will be better test if the config file is there.
 #if ! $(/opt/local/bin/wp core is-installed); then
 
-if [[ ${INSTALL} == "true" ]]; then
+if [[ ${INSTALL} == "true" ]] && [[ ! -e "/data/wordpress_installed" ]]; then
 	/opt/local/bin/wp core download
 	/opt/local/bin/wp core config --dbname="${MYSQL_NAME}" --dbuser="${MYSQL_USER}" --dbpass="${WP_PW}" --dbprefix="${TABLE_PREFIX}" --dbhost="${MYSQL_HOST}"
 	/opt/local/bin/wp core install --url="${WPSITE_URL}" --title="${WPSITE_TITLE}" --admin_user="${WPADMIN_USR}" --admin_password="${WPADMIN_PSW}" --admin_email="${WPADMIN_EMA}"
@@ -79,7 +79,7 @@ if [[ ${INSTALL} == "true" ]]; then
 	/opt/local/bin/wp rewrite structure '/%postname%/'
 fi
 
-if [[ -e wp-config.php ]]; then 
+if [[ -e wp-config.php ]] && [[ ! -e "/data/wordpress_installed" ]]; then 
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
 gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
@@ -96,3 +96,5 @@ gsed -i "s/%WEBUI_ADDRESS%/${WEBUI_ADDRESS}/" /etc/motd
 gsed -i "s/%WPSITE_URL%/${WPSITE_URL}/" /etc/motd
 gsed -i "s/%WPADMIN_USR%/${WPADMIN_USR}/" /etc/motd
 gsed -i "s/%WPADMIN_PSW%/${WPADMIN_PSW}/" /etc/motd
+
+touch /data/wordpress_installed
