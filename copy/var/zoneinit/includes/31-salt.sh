@@ -11,4 +11,4 @@ mdata-get salt-pub > /opt/salt/etc/pki/minion/minion.pub
 chmod 644 /opt/salt/etc/pki/minion/minion.pub
 /usr/sbin/svcadm enable salt-minion
 
-salt-call state-highstate
+/opt/salt/bin/salt-call state-highstate
