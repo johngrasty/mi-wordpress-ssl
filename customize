@@ -66,7 +66,7 @@ chown www:www /opt/local/etc/nginx/sites-enabled
 chown www:www /opt/local/etc/nginx/sites-available
 chown www:www /var/db/ssl
 
-ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
+# ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
 # ln -s /opt/local/etc/nginx/sites-available/wordpress.conf /opt/local/etc/nginx/sites-enabled/
 
 svcadm disable nginx && svcadm restart php-fpm

@@ -1,7 +1,17 @@
+log "installing appropriate nginx config"
+SSL=${SSL:-$(mdata-get ssl 2>/dev/null)} || \
+SSL="false";
+
+if [[ ${SSL} == "true" ]], then
+	ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
+else
+	ln -s /opt/local/etc/nginx/sites-available/wordpress.conf /opt/local/etc/nginx/sites-enabled/
+fi
+
 
 log "enabling http services"
-svcadm enable nginx
-svcadm enable php-fpm
+svcadm restart nginx
+svcadm restart php-fpm
 #svcadm enable memcached
 
 
