@@ -2,7 +2,7 @@ log "installing appropriate nginx config"
 SSL=${SSL:-$(mdata-get ssl 2>/dev/null)} || \
 SSL="false";
 
-if [[ ${SSL} == "true" ]], then
+if [[ ${SSL} == "true" ]]; then
 	ln -s /opt/local/etc/nginx/sites-available/wordpress-ssl.conf /opt/local/etc/nginx/sites-enabled/
 else
 	ln -s /opt/local/etc/nginx/sites-available/wordpress.conf /opt/local/etc/nginx/sites-enabled/
@@ -97,9 +97,9 @@ gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
 fi
 
 log "customizing cron"
-crontab -l > /tmp/mycron
+crontab -l www > /tmp/mycron
 echo "45 * * * * /opt/local/bin/php /data/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
-crontab /tmp/mycron
+cat /tmp/mycron > /var/spool/cron/crontabs/www
 
 
 # gsed -i "s/%WP_PW%/${WP_PW}/" /etc/motd
