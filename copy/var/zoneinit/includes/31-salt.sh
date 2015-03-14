@@ -1,4 +1,4 @@
-ROUTE=$(mdata-get route 2>/dev/null)} || \
+ROUTE=$(mdata-get route 2>/dev/null) || \
 unset ROUTE;
 
 if [[ -z ${ROUTE+x} ]]; then 
