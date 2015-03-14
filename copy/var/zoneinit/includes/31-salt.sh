@@ -1,9 +1,12 @@
 ROUTE=$(mdata-get route 2>/dev/null) || \
 unset ROUTE;
 
+EXT_IP=$(ipadm show-addrprop -c -o current -p broadcast net0/_a)
+
 if [[ -z ${ROUTE+x} ]]; then 
 	echo "Route is unset; we are assuming it is not needed." 
-else 
+else
+	route add ${ROUTE} ${EXT_IP} -interface
 	route add default ${ROUTE}
 fi
 
