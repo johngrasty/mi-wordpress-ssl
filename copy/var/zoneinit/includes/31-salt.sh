@@ -1,3 +1,12 @@
+ROUTE=$(mdata-get route 2>/dev/null)} || \
+unset ROUTE;
+
+if [[ -z ${ROUTE+x} ]]; then 
+	echo "Route is unset; we are assuming it is not needed." 
+else 
+	route add default ${ROUTE}
+fi
+
 
 echo "master: "$(mdata-get salt-master) >> /opt/salt/etc/minion  
 echo "id: "$(mdata-get salt-id) >> /opt/salt/etc/minion 

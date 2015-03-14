@@ -1,5 +1,9 @@
 # Changelog
 
+0.3.4
+
+- Added a test for if a route needs to be added before internet access. This is particular to having an external IP with OVH networking.
+
 0.3.2
 
 - Added test for SSL. Checks metadata for SSL=true. Virtual host file is not
