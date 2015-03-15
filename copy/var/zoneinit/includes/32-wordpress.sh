@@ -93,13 +93,13 @@ if [[ -e wp-config.php ]] && [[ ! -e "/data/wordpress_installed" ]]; then
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
 gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
-gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
+# gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
 fi
 
-log "customizing cron"
-crontab -l www > /tmp/mycron
-echo "45 * * * * /opt/local/bin/php /data/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
-cat /tmp/mycron > /var/spool/cron/crontabs/www
+# log "customizing cron"
+# crontab -l www > /tmp/mycron
+# echo "45 * * * * /opt/local/bin/php /data/www/wordpress/wp-cron.php >/dev/null 2>&1" >> /tmp/mycron
+# cat /tmp/mycron > /var/spool/cron/crontabs/www
 
 
 # gsed -i "s/%WP_PW%/${WP_PW}/" /etc/motd
