@@ -1,5 +1,14 @@
 # Changelog
 
+0.3.5
+
+- Bumped nginx to 1.9.1
+- Bumped salt to 2015.5.1
+
+0.3.4.3
+
+- Added a 5 second sleep to the salt process to avoid the issue with the keys not working.
+- chown -R www:www /data/www/ after the wp-cli download and install.s
 
 0.3.4
 

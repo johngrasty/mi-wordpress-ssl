@@ -89,12 +89,16 @@ if [[ ${INSTALL} == "true" ]] && [[ ! -e "/data/wordpress_installed" ]]; then
 	/opt/local/bin/wp rewrite structure '/%postname%/'
 fi
 
+
+
 if [[ -e wp-config.php ]] && [[ ! -e "/data/wordpress_installed" ]]; then 
 log "customizing wp-config.php"
 gsed -i "37i define ('WP_POST_REVISIONS', 4);" /data/www/wordpress/wp-config.php
 gsed -i "38i define('DISALLOW_FILE_EDIT', true);" /data/www/wordpress/wp-config.php
 # gsed -i "39i define('DISABLE_WP_CRON', true);" /data/www/wordpress/wp-config.php
 fi
+
+chown -R www:www /data/www/
 
 # log "customizing cron"
 # crontab -l www > /tmp/mycron

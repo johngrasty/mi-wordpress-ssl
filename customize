@@ -5,9 +5,9 @@
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
 # Variables
-NGINXVERSION=1.7.10
+NGINXVERSION=1.9.1
 # PURGEVERSION=2.1
-SALTVERSION=salt-2014.7.2
+SALTVERSION=salt-2015.5.1
 
 
 # Exit if any commands fail

@@ -1,6 +1,6 @@
 name="wordpress-without_mysql-ssl"
 organization="Grasty"
 brand="Instance"
-version="0.3.4.3"
+version="0.3.5"
 description="Wordpress with FastCGI + Nginx + opcache - mysql + ssl"
 users="root admin"
