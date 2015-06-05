@@ -6,8 +6,8 @@ EXT_IP=$(ipadm show-addrprop -c -o current -p broadcast net0/_a)
 if [[ -z ${ROUTE+x} ]]; then 
 	echo "Route is unset; we are assuming it is not needed." 
 else
-	route add ${ROUTE} ${EXT_IP} -interface
-	route add default ${ROUTE}
+	route -p add ${ROUTE} ${EXT_IP} -interface
+	route -p add default ${ROUTE}
 fi
 
 
