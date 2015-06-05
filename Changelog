@@ -1,5 +1,9 @@
 # Changelog
 
+0.3.5.1
+
+- Reverted to earlier version of salt. Nahamu said tht that 2015.5.x are broken.
+
 0.3.5
 
 - Bumped nginx to 1.9.1
