@@ -15,7 +15,6 @@ php70-zip
 php70-curl
 php70-imap
 php70-json
-php70-mysql
 php70-pdo_mysql
 php70-bcmath
 php70-fpm
