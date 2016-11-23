@@ -1,5 +1,9 @@
 # Changelog
 
+0.3.9 (2016-11-23)
+
+- Updated nginx version. Looked over things.
+
 0.3.6
 
 - Updated nginx version to 1.9.11
