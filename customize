@@ -5,7 +5,7 @@
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
 # Variables
-NGINXVERSION=1.11.6
+NGINXVERSION=1.21.1
 # PURGEVERSION=2.1
 SALTVERSION=salt-2014.7.5
 
@@ -74,7 +74,7 @@ svcadm enable postfix
 newaliases
 
 # Download current Salt and install service manifests
-cd /opt 
+cd /opt
 curl -k -LO https://us-east.manta.joyent.com/nahamu/public/salt/${SALTVERSION}-esky-smartos.tar.gz
 tar xzvf ${SALTVERSION}-esky-smartos.tar.gz
 /opt/salt/install/install.sh

@@ -1,5 +1,9 @@
 # Changelog
 
+0.4 (2017-07-31)
+
+- Updated nginx
+
 0.3.9 (2016-11-23)
 
 - Updated nginx version. Looked over things.
@@ -39,9 +43,9 @@
 - Added test for SSL. Checks metadata for SSL=true. Virtual host file is not
 transferred until then.
 
-0.3 
+0.3
 
-- SSL 
+- SSL
 - Salt integrated
 - nginx will not be enabled, because of the keys.
 - Salt will install the keys, and then enable nginx.
